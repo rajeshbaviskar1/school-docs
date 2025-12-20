@@ -1,0 +1,197 @@
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const XLSX = require("xlsx");
+const fs = require("fs");
+const path = require("path");
+const nodemailer = require("nodemailer");
+
+const app = express();
+const PORT = 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+// Path to Excel file
+const excelFilePath = path.join(__dirname, "schools.xlsx");
+
+// Initialize Excel if not exists
+const initExcel = () => {
+  if (!fs.existsSync(excelFilePath)) {
+    const ws = XLSX.utils.json_to_sheet([]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Schools");
+    XLSX.writeFile(wb, excelFilePath);
+    console.log("Excel file created!");
+  }
+};
+initExcel();
+
+// ----------------- REGISTER SCHOOL -----------------
+app.post("/api/register-school", async (req, res) => {
+  try {
+    const {
+      schoolName,
+      email,
+      mobile,
+      village,
+      tehsil,
+      district,
+      pinCode,
+      boardName,
+      username,
+      password,
+    } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ message: "Username and password required" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const workbook = XLSX.readFile(excelFilePath);
+    const worksheet = workbook.Sheets["Schools"];
+    const data = XLSX.utils.sheet_to_json(worksheet);
+
+    if (data.some((item) => item.username === username)) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
+    const newSchool = {
+      schoolName,
+      email,
+      mobile,
+      village,
+      tehsil,
+      district,
+      pinCode,
+      boardName,
+      username,
+      password: hashedPassword,
+    };
+
+    data.push(newSchool);
+
+    const newWorksheet = XLSX.utils.json_to_sheet(data);
+    const newWorkbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, "Schools");
+    XLSX.writeFile(newWorkbook, excelFilePath);
+
+    res.status(200).json({ message: "School registered successfully!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ----------------- LOGIN SCHOOL -----------------
+app.post("/api/login-school", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ message: "Username and password required" });
+    }
+
+    const workbook = XLSX.readFile(excelFilePath);
+    const worksheet = workbook.Sheets["Schools"];
+    const data = XLSX.utils.sheet_to_json(worksheet);
+
+    const user = data.find((item) => item.username === username);
+    if (!user) return res.status(400).json({ message: "Invalid username or password" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: "Invalid username or password" });
+
+    res.status(200).json({ message: "Login successful!", schoolName: user.schoolName });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ----------------- FORGOT PASSWORD -----------------
+app.post("/api/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: "Email is required" });
+
+    const workbook = XLSX.readFile(excelFilePath);
+    const worksheet = workbook.Sheets["Schools"];
+    const data = XLSX.utils.sheet_to_json(worksheet);
+
+    const user = data.find((item) => item.email === email);
+    if (!user) return res.status(400).json({ message: "Email not found" });
+
+    // Generate temporary password
+    const tempPassword = Math.random().toString(36).slice(-8); // 8-char password
+    const hashedPassword = await bcrypt.hash(tempPassword, 10);
+
+    // Update Excel with new password
+    user.password = hashedPassword;
+    const newWorksheet = XLSX.utils.json_to_sheet(data);
+    const newWorkbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, "Schools");
+    XLSX.writeFile(newWorkbook, excelFilePath);
+
+    // Send email
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "rajeshbaviskar1@gmail.com",
+        pass: "YOUR_APP_PASSWORD_HERE", // <-- replace with Gmail App Password
+      },
+    });
+
+    const mailOptions = {
+      from: "rajeshbaviskar1@gmail.com",
+      to: email,
+      subject: "Maha Digital School - Temporary Password",
+      text: `Hello ${user.username},\n\nYour temporary password is: ${tempPassword}\nPlease login and change your password immediately.\n\n- Maha Digital School`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: "Temporary password sent to your email!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ----------------- TEST EMAIL ROUTE -----------------
+app.post("/send-email", async (req, res) => {
+  const { to, subject, text } = req.body;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "rajeshbaviskar1@gmail.com",
+        pass: "YOUR_APP_PASSWORD_HERE", // <-- replace with Gmail App Password
+      },
+    });
+
+    const info = await transporter.sendMail({
+      from: '"Maha Digital School" <rajeshbaviskar1@gmail.com>',
+      to,
+      subject,
+      text,
+    });
+
+    res.send(`Email sent: ${info.messageId}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error, try again later.");
+  }
+});
+
+// ----------------- TEST ROUTE -----------------
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

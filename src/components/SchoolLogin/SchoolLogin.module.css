@@ -1,0 +1,835 @@
+/* Page wrapper with subtle gradient */
+.pageWrapper {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(145deg, #fdfdfd, #f3f4f6);
+  padding: 40px 20px;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin-bottom: 30px;
+}
+
+.schoolName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.contactBtn {
+  padding: 10px 16px;
+  background-color: #e0f2f1;
+  color: #fcfdfd;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.contactBtn:hover {
+  background-color: #047ff9;
+}
+
+/* Container layout */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+}
+
+/* Box */
+.box {
+  width: 320px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+/* Box headers */
+.boxHeader {
+  font-weight: bold;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Login Box */
+.loginBox {
+  background: #91d0fc;
+  min-height: 420px;
+  position: relative;
+}
+
+.loginHeader {
+  background: #0389f6;
+}
+
+/* Login icon animation */
+.loginHeader i {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Highlights & Notice Boxes */
+.highlightBox { background: #f7dd95; min-height: 300px; }
+.highlightHeader { background: #fe9903; }
+.noticeBox { background: #93ff9c; min-height: 300px; }
+.noticeHeader { background: #66bb6a; }
+
+/* Box content */
+.boxContent {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Inputs */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.inputField:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 10px rgba(33,150,243,0.2);
+  outline: none;
+}
+
+.showPasswordIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #607d8b;
+  transition: color 0.3s ease;
+}
+
+.showPasswordIcon:hover { color: #2196f3; }
+
+/* Options row */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.forgotLink { color: #2196f3; text-decoration: none; }
+.forgotLink:hover { text-decoration: underline; }
+
+/* Buttons */
+.loginBtn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+  color: white;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+.loginBtn:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #3B82F6, #1E3A8A);
+}
+
+.registerBtn {
+  display: block;
+  width: 70%;
+  margin: 12px auto 0;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+.registerBtn:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #66bb6a, #43a047);
+}
+
+/* Bottom links */
+.bottomLinks {
+  display: flex;
+  gap: 12px;
+  margin: 30px 0 10px;
+}
+
+.bottomBtn {
+  text-decoration: none;
+  padding: 6px 14px;
+  background: #2196f3;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.bottomBtn:hover { background: #1976d2; transform: translateY(-2px); }
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .container { flex-direction: column; align-items: center; }
+  .box { width: 90%; margin-bottom: 20px; }
+}
+
+/* Header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* keep contact button on right */
+  align-items: center; /* vertically center logo and button */
+  max-width: 1100px;
+  margin-bottom: 30px;
+  padding: 0 20px; /* add horizontal padding */
+  box-sizing: border-box;
+}
+
+/* Logo / School Name */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space if you later add an image icon */
+}
+
+.schoolName {
+  font-size: 26px; /* slightly bigger */
+  font-weight: bold;
+  color: #1e3a8a; /* blue theme */
+  display: flex;
+  align-items: center;
+}
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* center the school name/logo */
+  align-items: center;
+  max-width: 1100px;
+  margin-bottom: 30px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+.schoolName {
+  font-size: 28px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #1E3A8A, #3B82F6);
+  
+  /* Background clip for cross-browser compatibility */
+  -webkit-background-clip: text; /* Chrome, Safari, Opera */
+  -moz-background-clip: text;    /* Firefox */
+  background-clip: text;          /* Standard property */
+  
+  -webkit-text-fill-color: transparent; /* Makes gradient visible in WebKit */
+  opacity: 0;
+  animation: fadeInLogo 1.2s forwards;
+}
+
+@keyframes fadeInLogo {
+  to {
+    opacity: 1;
+  }
+}
+
+
+.pageWrapper {
+  font-family: "Poppins", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #e6f2ff 0%, #ffffff 40%, #d6e8ff 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layer 1: Gradient + soft blue blobs */
+.pageWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(30, 58, 138, 0.08), transparent 60%);
+  z-index: 0;
+}
+
+/* Layer 2: Faint education-themed SVG icons */
+.pageWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%233B82F6' stroke-width='1'%3E%3Cpath d='M5 20h30M20 5v30'/%3E%3Ccircle cx='20' cy='20' r='7'/%3E%3Cpath d='M10 32l4-4M30 8l-4 4M8 10l4 4M32 30l-4-4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  background-repeat: repeat;
+  z-index: 0;
+}
+
+/* Keep main content above background */
+.header, .container, .bottomLinks, .footer {
+  position: relative;
+  z-index: 1;
+}
+@keyframes slowPan {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+/* make sure form uses full width and inputs don't inherit center-align */
+.boxContent form {
+  width: 100%;
+  display: block;
+  text-align: left;        /* keep labels/inputs left-aligned */
+}
+
+/* ensure wrapper and inputs are block-level and fill available width */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 15px;
+  display: block;
+  text-align: left;
+}
+
+/* solid input sizing so the eye icon doesn't push text */
+.inputField {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;   /* important so padding doesn't change width */
+  padding: 12px 44px 12px 12px; /* give room for the right-side icon */
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 16px;
+  text-align: left;
+  direction: ltr;
+  caret-color: #0b57d0;
+}
+
+/* password eye icon: positioned above input, non-intrusive */
+.showPasswordIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #607d8b;
+  transition: color 0.2s ease;
+  user-select: none;
+  pointer-events: auto; /* allow clicks but keep it out of tab order with tabIndex in JSX */
+}
+
+/* ensure checkbox and forgot link row stays aligned */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* Optional: remove any center alignment from higher-level container */
+.boxContent {
+  text-align: left; /* safer — headers can remain centred by styling them separately */
+}
+
+/* Page wrapper with subtle gradient + background image */
+.pageWrapper {
+  font-family: "Poppins", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+
+  /* Background stack: darken overlay for contrast, image, then gradient as fallback */
+  background:
+    linear-gradient( rgba(255,255,255,0.75), rgba(255,255,255,0.75) ),
+    url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat,
+    linear-gradient(135deg, #e6f2ff 0%, #ffffff 40%, #d6e8ff 100%);
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layer 1: Gradient + soft blue blobs (keeps your previous subtle blobs) */
+.pageWrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(59,130,246,0.06), transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(30,58,138,0.05), transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Layer 2: Faint education-themed SVG icons (keeps icons faint) */
+.pageWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%233B82F6' stroke-width='1'%3E%3Cpath d='M5 20h30M20 5v30'/%3E%3Ccircle cx='20' cy='20' r='7'/%3E%3Cpath d='M10 32l4-4M30 8l-4 4M8 10l4 4M32 30l-4-4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  background-repeat: repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Make sure page content sits above the decorative background */
+.header, .container, .bottomLinks, .footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* center the school name/logo */
+  align-items: center;
+  max-width: 1100px;
+  margin-bottom: 30px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schoolName {
+  font-size: 28px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #1E3A8A, #3B82F6);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: fadeInLogo 1.2s forwards;
+}
+
+@keyframes fadeInLogo {
+  to { opacity: 1; }
+}
+
+/* Container layout */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+}
+
+/* Box */
+.box {
+  width: 320px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+/* Box headers */
+.boxHeader {
+  font-weight: bold;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Login Box */
+.loginBox {
+  background: #91d0fc;
+  min-height: 420px;
+  position: relative;
+}
+
+.loginHeader {
+  background: #0389f6;
+}
+
+/* Login icon animation */
+.loginHeader i {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Highlights & Notice Boxes */
+.highlightBox { background: #f7dd95; min-height: 300px; }
+.highlightHeader { background: #fe9903; }
+.noticeBox { background: #93ff9c; min-height: 300px; }
+.noticeHeader { background: #66bb6a; }
+
+/* Box content */
+.boxContent {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Inputs */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.inputField:focus {
+  border-color: #2196f3;
+  box-shadow: 0 0 10px rgba(33,150,243,0.2);
+  outline: none;
+}
+
+.showPasswordIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #607d8b;
+  transition: color 0.3s ease;
+}
+
+.showPasswordIcon:hover { color: #2196f3; }
+
+/* Options row */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.forgotLink { color: #2196f3; text-decoration: none; }
+.forgotLink:hover { text-decoration: underline; }
+
+/* Buttons */
+.loginBtn {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #1E3A8A, #3B82F6);
+  color: white;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+.loginBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #3B82F6, #1E3A8A);
+}
+
+.registerBtn {
+  display: block;
+  width: 70%;
+  margin: 12px auto 0;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #43a047, #66bb6a);
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease, transform 0.2s ease;
+}
+.registerBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  background: linear-gradient(135deg, #66bb6a, #43a047);
+}
+
+/* Bottom links */
+.bottomLinks {
+  display: flex;
+  gap: 12px;
+  margin: 30px 0 10px;
+}
+
+.bottomBtn {
+  text-decoration: none;
+  padding: 6px 14px;
+  background: #2196f3;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.bottomBtn:hover { background: #1976d2; transform: translateY(-2px); }
+
+/* Footer */
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .container { flex-direction: column; align-items: center; }
+  .box { width: 90%; margin-bottom: 20px; }
+}
+
+/* make sure form uses full width and inputs don't inherit center-align */
+.boxContent form {
+  width: 100%;
+  display: block;
+  text-align: left;
+}
+
+/* ensure wrapper and inputs are block-level and fill available width */
+.inputWrapper {
+  position: relative;
+  margin-bottom: 15px;
+  display: block;
+  text-align: left;
+}
+
+/* solid input sizing so the eye icon doesn't push text */
+.inputField {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 44px 12px 12px;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 16px;
+  text-align: left;
+  direction: ltr;
+  caret-color: #0b57d0;
+}
+
+/* password eye icon: positioned above input, non-intrusive */
+.showPasswordIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #607d8b;
+  transition: color 0.2s ease;
+  user-select: none;
+  pointer-events: auto;
+}
+
+/* ensure checkbox and forgot link row stays aligned */
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* Optional: remove any center alignment from higher-level container */
+.boxContent {
+  text-align: left;
+}
+
+.pageWrapper {
+  /* overlay for contrast, image, gradient fallback */
+  background:
+    linear-gradient(rgba(255,255,255,0.75), rgba(255,255,255,0.75)),
+    url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat,
+    linear-gradient(135deg,#e6f2ff 0%,#ffffff 40%,#d6e8ff 100%);
+}
+
+/* Card body (glass effect) */
+.box {
+  background: rgba(255,255,255,0.95); /* slightly off-white so text is crisp */
+  backdrop-filter: blur(6px); /* soft blur of background behind card */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* If you prefer fully solid card:
+.box {
+  background: #ffffff;
+}
+*/
+.loginHeader {
+  background: #1E3A8A; /* deep school blue */
+  color: #fff;
+}
+.pageWrapper {
+  font-family: "Poppins", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+
+  background:
+    linear-gradient(rgba(255,255,255,0.75), rgba(184, 184, 184, 0.75)),
+    url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat,
+    linear-gradient(135deg,#e6f2ff 0%,#ffffff 40%,#d6e8ff 100%);
+
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle decorative layer if you want to keep it */
+.pageWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%233B82F6' stroke-width='1'%3E%3Cpath d='M5 20h30M20 5v30'/%3E%3Ccircle cx='20' cy='20' r='7'/%3E%3Cpath d='M10 32l4-4M30 8l-4 4M8 10l4 4M32 30l-4-4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  background-repeat: repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* make sure content sits above background */
+.header, .container, .bottomLinks, .footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* card contrast */
+.box {
+  background: rgba(255,255,255,1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border-radius: 12px;
+}
+
+/* colored header like sample */
+.loginHeader {
+  background: #1E3A8A;
+  color: white;
+}
+/* card main */
+.loginBox {
+  width: 360px;
+  background: rgba(255,255,255,0.98);
+  border-radius: 10px;
+  box-shadow: 0 18px 40px rgba(16,24,40,0.15);
+  overflow:hidden;
+  position:relative;
+}
+
+/* colored header band */
+.loginHeader {
+  background: linear-gradient(90deg,#1E3A8A,#3B82F6);
+  color: #fff;
+  padding:12px 16px;
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* card content spacing */
+.boxContent {
+  padding:28px 20px 28px;
+}
+
+

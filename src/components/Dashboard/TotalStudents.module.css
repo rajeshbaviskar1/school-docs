@@ -1,0 +1,14 @@
+/* TotalStudents.module.css - small, optional tweaks for the TotalStudents card */
+
+/* Add a small spacing tweak or override if desired */
+.root {
+  /* optional: slightly larger card height for table preview */
+  min-height: 220px;
+}
+
+/* Example: style the fallback table header font-size a bit */
+:global(table) thead th {
+  font-size: 13px;
+}
+
+/* Add any future styles here specifically for TotalStudents component */

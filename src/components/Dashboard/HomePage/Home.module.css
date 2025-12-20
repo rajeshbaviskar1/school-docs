@@ -1,0 +1,285 @@
+.chartContainer {
+  margin-top: 25px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.statsCard {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.studentCount {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 10px;
+}
+
+.dashboardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.homeContainer {
+  padding: 20px;
+}
+
+.homeContainer {
+  padding: 20px;
+}
+
+.dashboardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #333;
+  text-align: center;
+}
+
+.chartContainer {
+  margin-top: 20px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chartWrapper {
+  width: 100%;
+  max-width: 100%;
+  height: 300px;
+}
+.homeContainer {
+  padding: 20px;
+}
+
+.dashboardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Row for side-by-side charts */
+.chartsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Individual chart wrapper */
+.chartWrapper {
+  flex: 1 1 400px; /* min width 400px, responsive */
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Toggle buttons for bar chart */
+.barToggle {
+  margin-bottom: 10px;
+}
+
+.barToggle button {
+  margin-right: 10px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #eee;
+}
+
+.barToggle button.activeToggle {
+  background: #007bff;
+  color: #fff;
+}
+
+.chartsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px; /* reduced from 25px to move charts up */
+}
+
+.chartWrapper {
+  flex: 1 1 380px;
+  background: #fff;
+  padding: 18px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.homeContainer {
+  padding: 20px;
+}
+
+.dashboardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Row for Pie and Bar Charts */
+.chartsRow {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: flex-start;
+  gap: 20px; /* spacing between charts */
+  flex-wrap: wrap; /* responsive wrap on small screens */
+}
+
+/* Wrapper for each chart */
+.chartWrapper {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 1 400px; /* allow resizing, min width ~400px */
+  max-width: 500px; /* optional max width */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center chart horizontally */
+}
+
+/* Chart titles */
+.chartTitle {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #555;
+}
+
+/* Bar Chart Interval Toggle */
+.barToggle {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.barToggle button {
+  padding: 5px 15px;
+  border: none;
+  background-color: #eee;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.barToggle button:hover {
+  background-color: #ddd;
+}
+
+.barToggle .activeToggle {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Home.module.css - charts alignment fixes + styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary: #1E3A8A;
+  --accent: #3B82F6;
+}
+
+.homeContainer {
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Page title */
+.dashboardTitle {
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  color: #fbfbf9;
+  text-align: center;
+}
+
+/* Row for Pie and Bar Charts */
+.chartsRow {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  align-items: stretch;    /* important: stretch children to equal height */
+  gap: 20px; /* spacing between charts */
+  flex-wrap: wrap; /* responsive wrap on small screens */
+  margin-top: 10px;
+}
+
+/* Wrapper for each chart */
+.chartWrapper {
+  background: #fff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  flex: 1 1 420px; /* grow/shrink, base width ~420px */
+  max-width: 720px; /* limit so wide screens don't get overly large charts */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* ensure inner chart fills height */
+  min-height: 380px; /* enforce equal height */
+}
+
+/* Title inside each chart card */
+.chartTitle {
+  font-size: 1.15rem;
+  margin-bottom: 12px;
+  text-align: center;
+  color: #333;
+}
+
+/* Inner container for ResponsiveContainer to fill */
+.chartInner {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 260px;
+  /* ensures the ResponsiveContainer gets a stable height to fill */
+}
+
+/* Toggle buttons for bar chart */
+.barToggle {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.barToggle button {
+  padding: 6px 14px;
+  border: none;
+  background-color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.barToggle button:hover { background-color: #ddd; }
+
+.activeToggle {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 6px 18px rgba(30,58,138,0.12);
+}
+
+/* Responsive rules */
+@media (max-width: 1000px) {
+  .chartWrapper {
+    flex: 1 1 100%;
+    max-width: none;
+    min-height: 420px;
+  }
+  .chartsRow { gap: 16px; }
+}
+
+/* Small visual polish */
+.chartWrapper .recharts-legend-wrapper {
+  margin-top: 8px;
+}

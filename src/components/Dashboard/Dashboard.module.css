@@ -1,0 +1,780 @@
+/* Dashboard.module.css */
+
+/* ----- Page Wrapper ----- */
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+}
+
+/* ----- Header ----- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background: linear-gradient(to right, #1E3A8A, #3B82F6);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.headerLeft {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.headerRight {
+  font-size: 16px;
+}
+
+.logoutBtn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #1E3A8A;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logoutBtn:hover {
+  background-color: #e0e7ff;
+}
+
+/* ----- Main Wrapper ----- */
+.mainWrapper {
+  display: flex;
+  flex: 1;
+  height: calc(100vh - 60px);
+  overflow: hidden;
+}
+
+/* ----- Sidebar ----- */
+.sidebar {
+  width: 220px;
+  background-color: #1E3A8A;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.sidebarBtn {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  margin: 5px 10px;
+  color: #cfd8f1;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.sidebarBtn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.sidebarBtn .icon {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+.active {
+  background-color: #3B82F6;
+  color: #fff;
+}
+
+/* ----- Main Content ----- */
+.mainContent {
+  flex: 1;
+  padding: 20px 30px;
+  overflow-y: auto;
+}
+
+/* ----- Summary Cards ----- */
+.summaryCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.card {
+  background: linear-gradient(to right, #1E3A8A, #3B82F6);
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.card h2 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* ----- Box (Section Container) ----- */
+.box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.boxHeader {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #1E3A8A;
+}
+
+/* ----- Forms ----- */
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.form input, .form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  flex: 1 1 200px;
+}
+
+.submitBtn {
+  padding: 10px 20px;
+  background-color: #3B82F6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.submitBtn:hover {
+  background-color: #2563eb;
+}
+
+/* ----- Student Table ----- */
+.tableContainer {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background-color: #f1f5f9;
+  color: #1E3A8A;
+  font-weight: bold;
+}
+
+/* ----- Scrollbar Styling ----- */
+.mainContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mainContent::-webkit-scrollbar-thumb {
+  background-color: rgba(30,58,138,0.5);
+  border-radius: 4px;
+}
+
+.mainContent::-webkit-scrollbar-track {
+  background-color: #f5f7fa;
+}
+.addressLine {
+  font-style: italic;
+  color: #555;
+  margin-top: 4px;
+}
+.schoolNameLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.schoolIcon {
+  color: #007bff;
+  font-size: 18px;
+}
+
+/* floating subtle accent on load */
+@keyframes floatIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.summaryCards .card, .box { animation: floatIn .45s ease both; }
+
+/* badges for small notices if needed */
+.badge {
+  display:inline-block;
+  background: #ffedd5;
+  color:#994d00;
+  padding:4px 8px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+/* just a nicer scrollbar for main area */
+.mainContent::-webkit-scrollbar { width: 8px; height:8px; }
+.mainContent::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary), var(--primary-2)); border-radius: 8px; }
+.mainContent::-webkit-scrollbar-track { background: rgba(225, 92, 92, 0.03); }
+
+/* === Dashboard Background: Professional Classroom === */
+.pageWrapper {
+  position: relative;
+  background: none; /* remove any flat color */
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pageWrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(95, 94, 94, 0.82), rgba(255, 255, 255, 0.9)),
+    url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1920&q=80") center/cover no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
+  filter: blur(0.73px);
+}
+
+.sidebar {
+  width: 280px;
+  /* other properties */
+}
+
+.profileActionBtn {
+  padding: 10px 18px;
+  background-color: #3664f9;   /* Dark blue */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profileActionBtn:hover {
+  background-color: #eef4fb;   /* Slightly darker hover */
+}
+
+.profileBtn {
+  background-color: transparent;
+  color: #ffffff; /* make text fully white */
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.profileBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Temp Change Password modal styles (append to Dashboard.module.css) */
+
+/* Overlay */
+.tcp_overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 12, 20, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 14px;
+}
+
+/* Card */
+.tcp_card {
+  width: 520px;
+  max-width: 96%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(2, 6, 23, 0.6);
+  background: #ffffff;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* class used to trigger enter animation (kept by component) */
+.tcp_enter {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Header */
+.tcp_header {
+  padding: 18px 20px;
+  background: linear-gradient(90deg, #064e4b 0%, #0ea5a4 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Body */
+.tcp_body {
+  padding: 20px;
+  color: #1f2937;
+}
+
+.tcp_desc {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #1f2937;
+  font-size: 14px;
+}
+
+/* Messages */
+.tcp_error { color: #b91c1c; margin-bottom: 10px; }
+.tcp_success { color: #065f46; margin-bottom: 10px; }
+
+/* Fields */
+.tcp_field {
+  margin-bottom: 12px;
+  position: relative;
+  display: flex;
+}
+
+.tcp_input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* show/hide icon button */
+.tcp_iconBtn {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  bottom: 6px;
+  border: none;
+  background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+}
+
+/* Footer */
+.tcp_footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Buttons */
+.tcp_btnSecondary {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  cursor: pointer;
+  color: #111827;
+}
+
+.tcp_btnPrimary {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #0ea5a4; /* teal primary */
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+/* Spinner (small) */
+.tcp_spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: tcp_spin 0.8s linear infinite;
+}
+
+/* small spin animation */
+@keyframes tcp_spin {
+  to { transform: rotate(360deg); }
+}
+
+/* responsive tweaks */
+@media (max-width: 520px) {
+  .tcp_card { width: calc(100% - 28px); }
+  .tcp_header { font-size: 16px; }
+}
+
+/* TEMP CHANGE PASSWORD MODAL — MATCHING DASHBOARD BLUE THEME */
+
+/* Overlay */
+.tcp_overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 14px;
+}
+
+/* Card */
+.tcp_card {
+  width: 520px;
+  max-width: 96%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55);
+  background: #ffffff;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.2,1);
+}
+
+.tcp_enter {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Header - Deep Dashboard Blue Gradient */
+.tcp_header {
+  padding: 18px 20px;
+  background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+/* Body */
+.tcp_body {
+  padding: 20px;
+  color: #1f2937;
+}
+
+.tcp_desc {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Messages */
+.tcp_error { color: #b91c1c; margin-bottom: 10px; }
+.tcp_success { color: #065f46; margin-bottom: 10px; }
+
+/* Fields */
+.tcp_field {
+  margin-bottom: 12px;
+  position: relative;
+  display: flex;
+}
+
+.tcp_input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1; /* dashboard input border */
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* show/hide icon */
+.tcp_iconBtn {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  bottom: 6px;
+  border: none;
+  background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+}
+
+/* Footer */
+.tcp_footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Buttons */
+.tcp_btnSecondary {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  cursor: pointer;
+  color: #1e293b;
+}
+
+.tcp_btnPrimary {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #1e3a8a;  /* DASHBOARD PRIMARY BLUE */
+  color: #fff;
+  cursor: pointer;
+  min-width: 130px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tcp_btnPrimary:hover {
+  background: #2746a4; /* slightly lighter blue hover */
+}
+
+/* Spinner */
+.tcp_spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: tcp_spin 0.8s linear infinite;
+}
+
+@keyframes tcp_spin {
+  to { transform: rotate(360deg); }
+}
+
+/* responsive */
+@media (max-width: 520px) {
+  .tcp_card { width: calc(100% - 28px); }
+  .tcp_header { font-size: 16px; }
+}
+
+/* TEMP CHANGE PASSWORD MODAL — BIGGER + MORE READABLE */
+
+/* Overlay */
+.tcp_overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* Card — increased size */
+.tcp_card {
+  width: 620px;                 /* bigger width */
+  max-width: 96%;
+  border-radius: 14px;          /* smoother corners */
+  overflow: hidden;
+  box-shadow: 0 10px 45px rgba(0, 0, 0, 0.55);
+  background: #ffffff;
+  transform-origin: center;
+  opacity: 0;
+  transform: scale(0.94);
+  transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.2,1);
+}
+
+/* entry animation */
+.tcp_enter {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Header — slightly bigger text */
+.tcp_header {
+  padding: 22px;
+  background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;  /* bigger */
+}
+
+/* Body — bigger text */
+.tcp_body {
+  padding: 24px;
+  color: #1f2937;
+  font-size: 15px; /* readable */
+}
+
+.tcp_desc {
+  margin: 0 0 16px 0;
+  font-size: 15px;  /* bigger */
+  line-height: 1.45;
+}
+
+/* Messages */
+.tcp_error { color: #b91c1c; margin-bottom: 10px; font-size: 14px; }
+.tcp_success { color: #065f46; margin-bottom: 10px; font-size: 14px; }
+
+/* Fields — bigger fields */
+.tcp_field {
+  margin-bottom: 16px;
+  position: relative;
+  display: flex;
+}
+
+/* Input box — taller + larger font */
+.tcp_input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;          /* bigger text */
+  height: 48px;             /* increased height */
+  box-sizing: border-box;
+}
+
+/* show/hide icon */
+.tcp_iconBtn {
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  bottom: 8px;
+  border: none;
+  background: transparent;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+}
+
+/* Footer — more spacing */
+.tcp_footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+/* Buttons — bigger + more readable */
+.tcp_btnSecondary {
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  cursor: pointer;
+  color: #1e293b;
+}
+
+.tcp_btnPrimary {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #1e3a8a;
+  color: #fff;
+  cursor: pointer;
+  min-width: 150px;           /* bigger button */
+  font-size: 15px;            /* bigger text */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tcp_btnPrimary:hover {
+  background: #2746a4;
+}
+
+/* Spinner */
+.tcp_spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: tcp_spin 0.8s linear infinite;
+}
+
+/* responsive */
+@media (max-width: 620px) {
+  .tcp_card { width: calc(100% - 32px); }
+  .tcp_header { font-size: 18px; }
+  .tcp_body { font-size: 14px; }
+}
+
+.docStatusBox {
+  margin-top: 16px;
+  padding: 10px;
+  background: #f9fafb;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.docStatusTitle {
+  font-weight: 600;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 4px;
+}
+
+.docStatusItem {
+  margin-bottom: 8px;
+}
+
+.docStatusCounts {
+  display: flex;
+  flex-direction: column;
+}
+
+.pending { color: #92400e; }
+.approved { color: #065f46; }
+.rejected { color: #991b1b; }
+

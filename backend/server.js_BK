@@ -1,0 +1,195 @@
+// server.js
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const db = require("./db"); // lowercase to match file
+
+const app = express();
+const PORT = 5000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
+/* ----------------- REGISTER SCHOOL ----------------- */
+app.post("/api/register-school", async (req, res) => {
+  try {
+    const {
+      schoolName,
+      principalName,
+      schoolEmail,
+      principalEmail,
+      village,
+      tehsil,
+      district,
+      pinCode,
+      boardName,
+      username,
+      password,
+    } = req.body;
+
+    if (!username || !password)
+      return res.status(400).json({ message: "Username and password required" });
+
+    // Check if username or email exists
+    db.get(
+      "SELECT * FROM UsersLogin WHERE username = ? OR schoolEmail = ?",
+      [username, schoolEmail],
+      async (err, existingUser) => {
+        if (err) return res.status(500).json({ message: "DB error" });
+        if (existingUser)
+          return res.status(400).json({ message: "Username or Email already exists" });
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        db.run(
+          `INSERT INTO UsersLogin
+          (schoolName, principalName, schoolEmail, principalEmail, village, tehsil, district, pinCode, boardName, username, password)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          [schoolName, principalName, schoolEmail, principalEmail, village, tehsil, district, pinCode, boardName, username, hashedPassword],
+          function (err) {
+            if (err) return res.status(500).json({ message: "DB error on insert" });
+            res.status(200).json({ message: "School registered successfully!" });
+          }
+        );
+      }
+    );
+  } catch (err) {
+    console.error("Register error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+/* ----------------- LOGIN SCHOOL ----------------- */
+app.post("/api/login-school", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password)
+      return res.status(400).json({ message: "Username and password required" });
+
+    db.get("SELECT * FROM UsersLogin WHERE username = ?", [username], async (err, user) => {
+      if (err) return res.status(500).json({ message: "DB error" });
+      if (!user)
+        return res.status(400).json({ message: "Invalid username or password" });
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch)
+        return res.status(400).json({ message: "Invalid username or password" });
+
+      res.status(200).json({ message: "Login successful!", schoolName: user.schoolName });
+    });
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+/* ----------------- GET SCHOOL INFO ----------------- */
+app.get("/api/school-info/:schoolName", (req, res) => {
+  const { schoolName } = req.params;
+
+  db.get("SELECT * FROM UsersLogin WHERE schoolName = ?", [schoolName], (err, row) => {
+    if (err) return res.status(500).json({ message: "DB error" });
+    if (!row) return res.status(404).json({ message: "School not found" });
+    // return row (including hashed password - frontend won't use it)
+    res.status(200).json(row);
+  });
+});
+
+/* ----------------- CHANGE PASSWORD ----------------- */
+/*
+  POST /api/change-password
+  Body: { schoolName, currentPassword, newPassword }
+*/
+app.post("/api/change-password", async (req, res) => {
+  try {
+    const { schoolName, currentPassword, newPassword } = req.body;
+    if (!schoolName || !currentPassword || !newPassword) {
+      return res.status(400).json({ message: "Required fields missing" });
+    }
+
+    // find user by schoolName
+    db.get("SELECT * FROM UsersLogin WHERE schoolName = ?", [schoolName], async (err, user) => {
+      if (err) {
+        console.error("DB error", err);
+        return res.status(500).json({ message: "DB error" });
+      }
+      if (!user) return res.status(404).json({ message: "School user not found" });
+
+      // compare current password
+      const match = await bcrypt.compare(currentPassword, user.password);
+      if (!match) return res.status(400).json({ message: "Current password is incorrect" });
+
+      // basic new password validation (length)
+      if (typeof newPassword !== "string" || newPassword.length < 6) {
+        return res.status(400).json({ message: "New password must be at least 6 characters" });
+      }
+
+      // hash new password and update
+      const hashed = await bcrypt.hash(newPassword, 10);
+      db.run("UPDATE UsersLogin SET password = ? WHERE id = ?", [hashed, user.id], function (updateErr) {
+        if (updateErr) {
+          console.error("Update password error", updateErr);
+          return res.status(500).json({ message: "Failed to update password" });
+        }
+        return res.status(200).json({ message: "Password changed successfully" });
+      });
+    });
+  } catch (err) {
+    console.error("Change password error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+/* ----------------- FORGOT PASSWORD (NEW) -----------------
+   POST /api/forgot-password
+   Body: { email } 
+   Behavior:
+     - If email exists in UsersLogin.schoolEmail, generate a temporary password,
+       hash it, update the user's password column and return success message (containing the temp password).
+     - If email not found -> 400 with message "Email not found".
+   NOTE: In production you should send the temporary password via email (SMTP) or use a one-time token.
+*/
+app.post("/api/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: "Email is required" });
+
+    db.get("SELECT * FROM UsersLogin WHERE schoolEmail = ?", [email], async (err, user) => {
+      if (err) {
+        console.error("DB error", err);
+        return res.status(500).json({ message: "DB error" });
+      }
+      if (!user) {
+        return res.status(400).json({ message: "Email not found" });
+      }
+
+      // generate a temporary password (8 chars)
+      const tempPassword = crypto.randomBytes(6).toString("base64").replace(/\W/g, "").slice(0, 8);
+
+      // hash and update password
+      const hashed = await bcrypt.hash(tempPassword, 10);
+      db.run("UPDATE UsersLogin SET password = ? WHERE id = ?", [hashed, user.id], function (updateErr) {
+        if (updateErr) {
+          console.error("Failed to update temporary password", updateErr);
+          return res.status(500).json({ message: "Failed to set temporary password" });
+        }
+
+        // Return success message. Frontend will alert this message.
+        // NOTE: For production, send this tempPassword via email and do NOT include it in the API response.
+        return res.status(200).json({
+          message: `Temporary password set. Your temporary password is: ${tempPassword}. Please login and change your password immediately.`
+        });
+      });
+    });
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+/* ----------------- START SERVER ----------------- */
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});

@@ -1,0 +1,69 @@
+const sqlite3 = require("sqlite3").verbose();
+const path = require("path");
+
+// Connect to SQLite DB
+const dbPath = path.resolve(__dirname, "school.db");
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error("❌ Error connecting to database:", err.message);
+  } else {
+    console.log("✅ SQLite database connected");
+  }
+});
+
+// Create tables
+db.serialize(() => {
+
+  // --- Existing UsersLogin table ---
+  db.run(`
+    CREATE TABLE IF NOT EXISTS UsersLogin (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      schoolName TEXT NOT NULL,
+      principalName TEXT NOT NULL,
+      schoolEmail TEXT NOT NULL UNIQUE,
+      principalEmail TEXT NOT NULL,
+      village TEXT NOT NULL,
+      tehsil TEXT NOT NULL,
+      district TEXT NOT NULL,
+      pinCode TEXT NOT NULL,
+      boardName TEXT NOT NULL,
+      username TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL,
+      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `, (err) => {
+    if (err) console.error("❌ Error creating UsersLogin table:", err.message);
+    else console.log("✅ UsersLogin table ensured");
+  });
+
+  // --- New StudentDetails table ---
+  db.run(`
+    CREATE TABLE IF NOT EXISTS StudentDetails (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      schoolName TEXT NOT NULL,
+      name TEXT NOT NULL,
+      motherName TEXT,
+      motherTongue TEXT,
+      raceCaste TEXT,
+      nationality TEXT DEFAULT 'Indian',
+      birthPlace TEXT,
+      dob TEXT,
+      lastSchool TEXT,
+      dateAdmission TEXT,
+      standard TEXT,
+      progress TEXT,
+      conduct TEXT,
+      dateLeaving TEXT,
+      reasonLeaving TEXT,
+      remark TEXT,
+      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `, (err) => {
+    if (err) console.error("❌ Error creating StudentDetails table:", err.message);
+    else console.log("✅ StudentDetails table ensured");
+  });
+
+});
+
+module.exports = db;
