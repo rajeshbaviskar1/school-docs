@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaFileAlt, FaIdCard, FaCertificate } from "react-icons/fa";
 import styles from "./DocumentStatus.module.css";
+import API_BASE_URL from "../../utils/api";
 
 const DocumentStatus = () => {
   const [activeDoc, setActiveDoc] = useState(null);
@@ -26,10 +27,8 @@ const DocumentStatus = () => {
         setLoading(true);
 
         const res = await fetch(
-          `http://localhost:5000/api/lc/all?schoolName=${encodeURIComponent(
-            schoolName
-          )}`
-        );
+  `${API_BASE_URL}/api/lc/all?schoolName=${encodeURIComponent(schoolName )}`
+);
 
         const data = await res.json();
 
@@ -216,10 +215,10 @@ const DocumentStatus = () => {
                       className={styles.downloadBtn}
                       disabled={row.status !== "Approved"} // 🔒 IMPORTANT
                       onClick={() =>
-                        window.open(
-                          `http://localhost:5000/api/lc/download/${row.lcId}`,
-                          "_blank"
-                        )
+                      window.open(
+  `${API_BASE_URL}/api/lc/download/${row.lcId}`,
+  "_blank"
+)
                       }
                     >
                       Download
@@ -242,7 +241,6 @@ const DocumentStatus = () => {
     </div>
   );
 };
-
 
 
 export default DocumentStatus;
