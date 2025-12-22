@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "./Dashboard.module.css";
+import API_BASE_URL from "../../utils/api";
+
 
 /**
  * Props:
@@ -68,7 +70,7 @@ const TempChangePasswordModal = ({ open, onClose, username, schoolName }) => {
         newPassword: form.newPassword,
       };
 
-      const res = await fetch("http://localhost:5000/api/change-password-temp", {
+      const res = await fetch(`${API_BASE_URL}/api/change-password-temp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
